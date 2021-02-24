@@ -1,0 +1,115 @@
+#%RAML 1.0
+title: TFM PROYECTO - Electrical Support 
+baseUri: http://localhost:3000/api/{version}
+version: v1
+
+types:
+    Login:
+        properties:
+            id:
+                required: false
+                type: integer
+            email: string
+            contrasena: string
+    
+    Equipo:
+        properties:
+            id:
+                required: false
+                type: integer
+            nombre: string
+            variable1: string
+            variable2: string
+            accion1: integer
+            accion2: integer
+            serialNumber: string
+
+    Mydevices:
+        properties:
+            id:
+                required: false
+                type: integer
+            equipo: string
+            sitio: string
+            descripcion: string
+            serialNumber: integer
+            status: integer
+      
+  
+/Login:
+    get:
+        description: Obtiene un listado de los usuarios
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: Login[]
+    /{email}:
+        get:
+            description: Obtiene un usuario
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: Login        
+    post:
+        description: Crea una nueva seccion de login
+        body:
+            application/json:
+                type: Login
+        responses:
+            201:
+                description: Login creado. Retorna el identificador del nuevo login
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del nuevo login  
+
+/Equipo:
+    get: 
+        description: Obtiene un listado de los equipos
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: Equipo[]
+    put:
+        description: Actualiza Equipo
+        headers: 
+        body: 
+        responses: 
+            201:
+                description: Equipo actualizado, retorna OK.
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del Equipo
+    post:
+        description: Crea nuevo equipo
+        body:
+            application/json:
+                type: Equipo
+        responses:
+            201:
+                description: Equipo creado. Retorna nada
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del nuevo equipo
+    /{serial}:
+        get:
+            description: Obtiene un equipo especifico
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: Equipo
+
+/Mydevices:
+    get: 
+        description: Obtiene un listado de los devices
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: Mydevices[]  
